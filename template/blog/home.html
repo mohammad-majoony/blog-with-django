@@ -1,0 +1,35 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block title %} home {% endblock title %}
+{% block header_pic %} {% static "blog/assets/img/home-bg.jpg" %} {% endblock header_pic %}
+{% block header_title %} WELLCOME {% endblock header_title %}
+{% block header_text %} write and read blog and enjoy  {% endblock header_text %}
+{% block content %}
+    <!-- Main Content -->
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <!-- articles -->
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                {% for article in articles %}
+                    <!-- Post preview-->
+                    <div class="post-preview">
+                        <a href="{% url 'blog:article_detail' article.slug %}">
+                            <img src="{{article.thumbnail.url}}" alt="{{article.title}}" class="img-thumbnail">
+                            <h2 class="post-title">{{article.title}}</h2>
+                            <h3 class="post-subtitle">{{article.description|truncatewords:20}}</h3>
+                        </a>
+                        <p class="post-meta">
+                            Posted by
+                            <a href="#!">{{article.author}}</a>
+                            {{article.created}}
+                        </p>
+                    </div>
+                    <hr class="my-4" />
+                {% endfor %}
+            </div>
+            <!-- Pager-->
+            <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
+        </div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,28 @@
+{% extends 'base/base.html' %}
+
+{% block title %}
+    detail | {{article.title}}
+{% endblock title %}
+
+{% block header_pic %}
+    {{article.thumbnail.url}}
+{% endblock header_pic %}
+
+{% block header_title %} {{article.title}} {% endblock header_title %}
+{% block header_text %} {{article.author}} | {{article.created}} {% endblock header_text %}
+
+{% block content %}
+    <!-- Post Content-->
+    <article class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <h2 class="section-heading">{{article.title}}</h2>
+                    <img src="{{article.thumbnail.url}}" alt="{{article.title}}" class="img-thumbnail">
+                    <p>{{article.description|linebreaks}}</p>
+                    <p><a href="">{{article.author}}</a> | {{article.created}}</p>
+                </div>
+            </div>
+        </div>
+    </article>
+{% endblock content %}
