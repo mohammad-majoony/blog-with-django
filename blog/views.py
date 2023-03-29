@@ -9,7 +9,7 @@ def article_view(request) :
     return render(request , 'blog/home.html' , context)
 
 def article_detail(request , slug) :    
-    data = Article.objects.get(slug=slug)
+    data = get_object_or_404(Article , slug=slug)
     context = {
         'article' : data,
     }
