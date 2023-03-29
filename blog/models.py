@@ -4,18 +4,21 @@ from django.contrib.auth import get_user_model
 
 class Article(models.Model) :
     STATUS_CHOICES = (
-        ('d' , 'draft'),
-        ('p' , 'publish') 
+        ('d' , 'پرایوت'),
+        ('p' , 'پابلیک') 
     )
-    title = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=100 , unique=True)
-    description = models.TextField()
-    thumbnail = models.ImageField(upload_to='images' , default="defualt/blog.jpg")
-    publish = models.DateTimeField(default=timezone.now)
-    created = models.DateTimeField(auto_now_add=True)
-    updated = models.DateTimeField(auto_now=True)
-    status = models.CharField(max_length=1 , choices=STATUS_CHOICES)
-    author = models.ForeignKey(get_user_model() , on_delete=models.CASCADE)
+    title = models.CharField(verbose_name = 'عنوان' , max_length=200)
+    slug = models.SlugField(verbose_name = 'عنوان جستجو' , max_length=100 , unique=True)
+    description = models.TextField(verbose_name = 'متن')
+    thumbnail = models.ImageField(verbose_name = 'تامبنیل' , upload_to='images' , default="defualt/blog.jpg")
+    created = models.DateTimeField(verbose_name = 'تاریخ انتشار' , auto_now_add=True)
+    updated = models.DateTimeField(verbose_name = 'تاریخ بروزرسانی'  , auto_now=True)
+    status = models.CharField(verbose_name = 'وضعیت' , max_length=1 , choices=STATUS_CHOICES)
+    author = models.ForeignKey( get_user_model() , verbose_name = 'نویسنده' , on_delete=models.CASCADE)
     
     def __str__(self) :
         return self.title[:15]  
+    
+    class Meta :
+        verbose_name = 'مقاله'
+        verbose_name_plural = 'مقاله ها'
