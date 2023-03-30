@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth import get_user_model
+from extensions.utils import jalali_converter 
 
 class Article(models.Model) :
     STATUS_CHOICES = (
@@ -11,8 +12,8 @@ class Article(models.Model) :
     slug = models.SlugField(verbose_name = 'عنوان جستجو' , max_length=100 , unique=True)
     description = models.TextField(verbose_name = 'متن')
     thumbnail = models.ImageField(verbose_name = 'تامبنیل' , upload_to='images' , default="defualt/blog.jpg")
-    created = models.DateTimeField(verbose_name = 'تاریخ انتشار' , auto_now_add=True)
-    updated = models.DateTimeField(verbose_name = 'تاریخ بروزرسانی'  , auto_now=True)
+    created = models.DateTimeField(verbose_name = 'زمان انتشار' , auto_now_add=True)
+    updated = models.DateTimeField(verbose_name = 'زمان بروزرسانی'  , auto_now=True)
     status = models.CharField(verbose_name = 'وضعیت' , max_length=1 , choices=STATUS_CHOICES)
     author = models.ForeignKey( get_user_model() , verbose_name = 'نویسنده' , on_delete=models.CASCADE)
     
@@ -22,3 +23,8 @@ class Article(models.Model) :
     class Meta :
         verbose_name = 'مقاله'
         verbose_name_plural = 'مقاله ها'
+        
+    def jalali_created(self) :
+        return jalali_converter(self.created)
+    
+    jalali_created.short_description = 'زمان انتشار' 
