@@ -3,6 +3,21 @@ from django.utils import timezone
 from django.contrib.auth import get_user_model
 from extensions.utils import jalali_converter 
 
+class Category(models.Model) :
+    title = models.CharField(verbose_name = 'عنوان دسته بندی' , max_length=200)
+    slug = models.SlugField(verbose_name = 'ادرس دسته بندی' , max_length=100 , unique=True)
+    status = models.BooleanField(verbose_name = 'نمایش داده شود ؟' , default=True)
+    position = models.IntegerField(verbose_name='پوزیشن')
+    
+    class Meta :
+        verbose_name = 'دسته بندی'
+        verbose_name_plural = 'دسته بندی ها'
+        ordering = ['-position'] 
+    
+    def __str__(self) :
+        return self.title
+
+
 class Article(models.Model) :
     STATUS_CHOICES = (
         ('d' , 'پرایوت'),
@@ -16,6 +31,7 @@ class Article(models.Model) :
     updated = models.DateTimeField(verbose_name = 'زمان بروزرسانی'  , auto_now=True)
     status = models.CharField(verbose_name = 'وضعیت' , max_length=1 , choices=STATUS_CHOICES)
     author = models.ForeignKey( get_user_model() , verbose_name = 'نویسنده' , on_delete=models.CASCADE)
+    category = models.ManyToManyField(Category, verbose_name='دسته بندی')
     
     def __str__(self) :
         return self.title[:15]  
@@ -26,5 +42,4 @@ class Article(models.Model) :
         
     def jalali_created(self) :
         return jalali_converter(self.created)
-    
     jalali_created.short_description = 'زمان انتشار' 
