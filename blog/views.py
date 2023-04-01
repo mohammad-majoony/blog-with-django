@@ -3,10 +3,8 @@ from .models import *
 
 def article_view(request) :
     articles = Article.objects.filter(status='p').order_by('-created')
-    categorys = Category.objects.filter(status=True)
     context = {
         'articles' : articles,
-        'categorys' : categorys
     }
     return render(request , 'blog/home.html' , context)
 
