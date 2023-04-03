@@ -1,17 +1,16 @@
-{% extends "base/base.html" %}
-{% load static %}
+{% extends 'base/base.html' %}
+{% block title %} دسته بندی | {{category.title}} {% endblock title %}
+{% block header_pic %} {{ category.photo.url }} {% endblock header_pic %}
+{% block header_title %} {{category.title}} {% endblock header_title %}
+{% block header_text %} مقالات دسته بندی {{category.title}}  {% endblock header_text %}
 
-{% block title %} home {% endblock title %}
-{% block header_pic %} {% static "blog/assets/img/home-bg.jpg" %} {% endblock header_pic %}
-{% block header_title %} خوش آمدید {% endblock header_title %}
-{% block header_text %} وبلاگ بنویسید , بخوانید و لذت ببرید  {% endblock header_text %}
 {% block content %}
     <!-- Main Content -->
     <div class="container px-4 px-lg-5">
         <div class="row gx-4 gx-lg-5 justify-content-center">
             <!-- articles -->
             <div class="col-md-10 col-lg-8 col-xl-7">
-                {% for article in articles %}
+                {% for article in category.articles.all %}
                     <!-- Post preview-->
                     <div class="post-preview">
                         <a href="{% url 'blog:article_detail' article.slug %}">
@@ -21,19 +20,19 @@
                         </a>
                         <p class="post-meta">
                             نوشته شده توسط 
-                            <a href="#!">{{article.author}}</a>
+                            <a href="#!">{{article.author}}</a>sargarmi
                         </p>
                         <p class="post-meta">
                             {{article.jalali_created}}
                         </p>
                             
-                        <p>{% for cat in article.category_public %}<a href="{% url 'blog:category' cat.slug %}" class="category_link">#{{cat.title}} </a>{% endfor %}</p>
+                        <p>{% for cat in article.category_public %}<a href="{% url 'blog:category' cat.slug %}" class="category_link" >#{{cat.title}} </a>{% endfor %}</p>
                     </div>
                     <hr class="my-4" />
                 {% endfor %}
             </div>
             <!-- Pager-->
-            <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">پست های قدیمی &larr;</a></div>
+            <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#">پست های قدیمی &larr;</a></div>
         </div>
     </div>
 {% endblock content %}

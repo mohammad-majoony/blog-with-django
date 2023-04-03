@@ -4,9 +4,7 @@
     </a>
     <ul class="dropdown-menu  bg-primary">
         {% for category in categorys %}
-            <li><a class="dropdown-item" href="#">{{category.title}}</a></li>
+            <li><a class="dropdown-item" href="{% url 'blog:category' category.slug %}">{{category.title}}</a></li>
         {% endfor %}
-        <li><hr class="dropdown-divider"></li>
-        <li><a class="dropdown-item" href="#">دسته بندی ها</a></li>
     </ul>
 </li>

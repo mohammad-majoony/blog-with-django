@@ -14,3 +14,10 @@ def article_detail(request , slug) :
         'article' : data,
     }
     return render(request , 'blog/detail.html', context)
+
+def category(request , slug) :
+    data = get_object_or_404(Category , slug=slug , status=True)
+    context = {
+        'category' : data,
+    }
+    return render(request , 'blog/category.html', context)

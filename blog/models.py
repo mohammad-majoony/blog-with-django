@@ -8,6 +8,7 @@ class Category(models.Model) :
     slug = models.SlugField(verbose_name = 'ادرس دسته بندی' , max_length=100 , unique=True)
     status = models.BooleanField(verbose_name = 'نمایش داده شود ؟' , default=True)
     position = models.IntegerField(verbose_name='پوزیشن')
+    photo = models.ImageField(upload_to="categoryPic" , default="defualt/blog.jpg")
     
     class Meta :
         verbose_name = 'دسته بندی'
@@ -31,7 +32,7 @@ class Article(models.Model) :
     updated = models.DateTimeField(verbose_name = 'زمان بروزرسانی'  , auto_now=True)
     status = models.CharField(verbose_name = 'وضعیت' , max_length=1 , choices=STATUS_CHOICES)
     author = models.ForeignKey( get_user_model() , verbose_name = 'نویسنده' , on_delete=models.CASCADE)
-    category = models.ManyToManyField(Category, verbose_name='دسته بندی')
+    category = models.ManyToManyField(Category, verbose_name='دسته بندی' , related_name='articles')
     
     def __str__(self) :
         return self.title[:15]  
@@ -43,3 +44,6 @@ class Article(models.Model) :
     def jalali_created(self) :
         return jalali_converter(self.created)
     jalali_created.short_description = 'زمان انتشار' 
+    
+    def category_public(self) :
+        return self.category.filter(status=True)
