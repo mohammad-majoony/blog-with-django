@@ -10,7 +10,7 @@ class ArticleAdmin(admin.ModelAdmin) :
     ordering = ["-created"]
     
     def category_str(self , obj) :
-        return " - ".join([category.title for category in obj.category.all()])
+        return " - ".join([category.title for category in obj.category_public()])
     category_str.short_description = 'دسته بندی ها'
     
 @admin.register(Category)

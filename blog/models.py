@@ -3,6 +3,12 @@ from django.utils import timezone
 from django.contrib.auth import get_user_model
 from extensions.utils import jalali_converter 
 
+# my managers
+
+class ArticleManger(models.Manager) :
+    def published(self) :
+        return self.filter(status="p")
+
 class Category(models.Model) :
     title = models.CharField(verbose_name = 'عنوان دسته بندی' , max_length=200)
     slug = models.SlugField(verbose_name = 'ادرس دسته بندی' , max_length=100 , unique=True)
@@ -47,3 +53,5 @@ class Article(models.Model) :
     
     def category_public(self) :
         return self.category.filter(status=True)
+    
+    objects = ArticleManger()
