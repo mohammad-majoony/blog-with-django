@@ -33,9 +33,9 @@
                 {% endfor %}
             </div>
             <!-- Pager-->
-            <div class="d-flex justify-content-end mb-4" style="background-color:black">
-                {% if articles.has_next %}<a class="btn btn-primary text-uppercase" href="{% url 'blog:home' %}?page={{articles.next_page_number}}">پست های جدید &rarr;</a>{% endif %} 
-                {% if articles.has_previous %}<a class="btn btn-primary text-uppercase" href="{% url 'blog:home' %}?page={{articles.previous_page_number}}">پست های قدیمی &larr;</a>{% endif %}
+            <div class="d-flex justify-content-end mb-4">
+                {% if articles.has_next %}<a class="next_button_pagination  btn btn-primary text-uppercase" href="{% url 'blog:home' articles.next_page_number %}">پست های قدیمی &rarr;</a>{% endif %} 
+                {% if articles.has_previous %}<a class="btn btn-primary text-uppercase" href="{% url 'blog:home' articles.previous_page_number %}">پست های جدید &larr;</a>{% endif %}
             </div>
         </div>
     </div>

@@ -10799,3 +10799,6 @@ header.masthead .post-heading .meta a {
 .category_link{
   text-decoration: none;
 }
+.next_button_pagination{
+  margin-left:auto;
+}
