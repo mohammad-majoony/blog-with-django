@@ -15,7 +15,7 @@ class ArticleAdmin(admin.ModelAdmin) :
     
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin) :
-    list_display = ['position' ,'title' , 'status']
+    list_display = ['position' ,'title' , 'parent' , 'status']
     list_editable = ['status']
     list_filter = ['status']
     prepopulated_fields = {'slug' : ('title' ,)}

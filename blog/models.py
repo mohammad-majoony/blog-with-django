@@ -10,6 +10,7 @@ class ArticleManger(models.Manager) :
         return self.filter(status="p")
 
 class Category(models.Model) :
+    parent = models.ForeignKey('self' , default=None , blank=True , null=True , related_name='childeren' , verbose_name='زیر دسته' , on_delete=models.SET_NULL)
     title = models.CharField(verbose_name = 'عنوان دسته بندی' , max_length=200)
     slug = models.SlugField(verbose_name = 'ادرس دسته بندی' , max_length=100 , unique=True)
     status = models.BooleanField(verbose_name = 'نمایش داده شود ؟' , default=True)
