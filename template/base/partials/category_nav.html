@@ -1,10 +1,16 @@
-<li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle  px-lg-3 py-3 py-lg-4" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-        دسته بندی ها
-    </a>
-    <ul class="dropdown-menu  bg-primary">
-        {% for category in categorys %}
-            <li><a class="dropdown-item" href="{% url 'blog:category' category.slug %}">{{category.title}}</a></li>
-        {% endfor %}
-    </ul>
-</li>
+{% for category in categorys %}
+    {% if category.parent == None %}
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle  px-lg-3 py-3 py-lg-4" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {{category.title}}
+            </a>
+            <ul class="dropdown-menu  bg-primary">
+                {% for cat in category.children.all %}
+                    <li><a class="dropdown-item" href="{% url 'blog:category' cat.slug %}">{{cat}}</a></li>
+                {% endfor %}
+                <div class="dropdown-divider"></div>
+                <li><a class="dropdown-item" href="{% url 'blog:category' category.slug %}"> مقالات {{category.title}}</a></li>     
+            </ul>
+        </li>
+    {% endif %}
+{% endfor %}
