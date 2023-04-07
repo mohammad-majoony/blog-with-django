@@ -8,6 +8,10 @@ from extensions.utils import jalali_converter
 class ArticleManger(models.Manager) :
     def published(self) :
         return self.filter(status="p")
+    
+class CategoryManger(models.Manager) :
+    def active(self) :
+        return self.filter(status=True)
 
 class Category(models.Model) :
     parent = models.ForeignKey('self' , default=None , blank=True , null=True , related_name='children' , verbose_name='زیر دسته' , on_delete=models.SET_NULL)
@@ -24,6 +28,8 @@ class Category(models.Model) :
     
     def __str__(self) :
         return self.title
+    
+    objects = CategoryManger()
 
 
 class Article(models.Model) :

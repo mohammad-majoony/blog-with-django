@@ -2,31 +2,38 @@ from django.shortcuts import render , get_object_or_404
 from django.core.paginator import Paginator
 from .models import *
 
+from django.views.generic import ListView , DetailView
+
 def pagination(list , count , page) :
     paginate = Paginator(list , count)
     return paginate.get_page(page)
 
-def article_view(request , page = 1) :
-    articles = Article.objects.published().order_by('-created')
-    articles = pagination(articles , 1 , page)
-    context = {
-        'articles' : articles,
-    }
-    return render(request , 'blog/home.html' , context)
+class ArticlesView(ListView) :
+    queryset = Article.objects.published().order_by('-created')
+    paginate_by = 1
+    template_name = 'blog/home.html' # or change html name to articles_view.html in blog folder
+    context_object_name = 'articles'
+    
 
-def article_detail(request , slug) :    
-    data = get_object_or_404(Article.objects.published() , slug=slug)
-    context = {
-        'article' : data,
-    }
-    return render(request , 'blog/detail.html', context)
+class ArticleDetail(DetailView) :
+    def get_object(self) :
+        slug = self.kwargs.get('slug')
+        return get_object_or_404(Article.objects.published() , slug=slug)
+    template_name = 'blog/detail.html' # or set html name to article_detail.html
 
-def category(request , slug , page=1) :
-    category = get_object_or_404(Category , status=True , slug=slug)
-    articles = category.articles.published()
-    articles = pagination(articles , 2 , page)
-    context = {
-        'category' : category,
-        'articles' : articles
-    }
-    return render(request , 'blog/category.html', context)
+
+class CategoryView(ListView) :
+    template_name = 'blog/category.html'
+    paginate_by = 1
+    context_object_name = 'articles'
+    
+    def get_queryset(self):
+        global category
+        slug = self.kwargs.get('slug')
+        category = get_object_or_404(Category.objects.active() , slug=slug)
+        return category.articles.published()
+    
+    def get_context_data(self, **kwargs) :
+        context = super().get_context_data(**kwargs)
+        context['category'] = category
+        return context

@@ -4,9 +4,9 @@ from .views import *
 app_name = "blog"
 
 urlpatterns = [
-    path('' , article_view , name='home'),
-    path('page/<int:page>' , article_view , name='home'),
-    path('article/<slug:slug>' , article_detail , name='article_detail'),
-    path('category/<slug:slug>' , category , name='category'),
-    path('category/<slug:slug>/page/<int:page>' , category , name='category'),
+    path('' , ArticlesView.as_view() , name='home'),
+    path('page/<int:page>' , ArticlesView.as_view() , name='home'),
+    path('article/<slug:slug>' , ArticleDetail.as_view() , name='article_detail'),
+    path('category/<slug:slug>' , CategoryView.as_view() , name='category'),
+    path('category/<slug:slug>/page/<int:page>' , CategoryView.as_view() , name='category'),
 ]
