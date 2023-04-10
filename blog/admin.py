@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import *
 
-# admin.site.disable_action('delete_selected')
+# admin.site.disable_action('delete_selected')de
 
 def text_message(count) :
     if count == 1 : return "شد"
@@ -21,7 +21,7 @@ make_public.short_description = 'انتشار پست'
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin) :
-    list_display = ['title' , 'author' , 'jalali_created' , 'category_str' , 'status']
+    list_display = ['title' , 'thumbnail_html' , 'author' , 'jalali_created' , 'category_str' , 'status']
     list_editable = ['status']
     list_filter = ['status']
     prepopulated_fields = {'slug' : ('title' ,)}
