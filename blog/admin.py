@@ -23,7 +23,7 @@ make_public.short_description = 'انتشار پست'
 class ArticleAdmin(admin.ModelAdmin) :
     list_display = ['title' , 'thumbnail_html' , 'author' , 'jalali_created' , 'category_str' , 'status']
     list_editable = ['status']
-    list_filter = ['status']
+    list_filter = ['status' , 'author']
     prepopulated_fields = {'slug' : ('title' ,)}
     ordering = ["-created"]
     actions = [make_private , make_public]

@@ -20,7 +20,7 @@
                     <h2 class="section-heading">{{article.title}}</h2>
                     <img src="{{article.thumbnail.url}}" alt="{{article.title}}" class="img-thumbnail">
                     <p>{{article.description|linebreaks}}</p>
-                    <p><a href="">{{article.author}}</a> | {{article.created}}</p>
+                    <p><a href="{% url 'blog:author_articles' article.author %}">{{article.author}}</a> | {{article.created}}</p>
                     <p>{% for cat in article.category_public %}<a class="category_link"  href="{% url 'blog:category' cat.slug %}">#{{cat}}</a> {% endfor %}</p>
                 </div>
             </div>

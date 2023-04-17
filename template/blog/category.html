@@ -20,7 +20,7 @@
                         </a>
                         <p class="post-meta">
                             نوشته شده توسط 
-                            <a href="#!">{{article.author}}</a>
+                            <a href="{% url 'blog:author_articles' article.author %}">{{article.author}}</a>
                         </p>
                         <p class="post-meta">
                             {{article.jalali_created}}

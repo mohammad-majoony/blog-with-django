@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.utils.html import format_html
-from django.contrib.auth import get_user_model
+from django.contrib.auth.models import User
 from extensions.utils import jalali_converter 
 
 # my managers
@@ -45,7 +45,7 @@ class Article(models.Model) :
     created = models.DateTimeField(verbose_name = 'زمان انتشار' , auto_now_add=True)
     updated = models.DateTimeField(verbose_name = 'زمان بروزرسانی'  , auto_now=True)
     status = models.CharField(verbose_name = 'وضعیت' , max_length=1 , choices=STATUS_CHOICES)
-    author = models.ForeignKey( get_user_model() , verbose_name = 'نویسنده' , on_delete=models.CASCADE)
+    author = models.ForeignKey(User , verbose_name = 'نویسنده' , on_delete=models.CASCADE , related_name='articles')
     category = models.ManyToManyField(Category, verbose_name='دسته بندی' , related_name='articles')
     
     def __str__(self) :
