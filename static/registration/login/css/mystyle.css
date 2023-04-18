@@ -7,3 +7,8 @@
     font-family: Sahel !important ;
     direction: rtl !important;
 }
+.error{
+    padding: 20px;
+    background-color: rgb(235, 99, 99);
+    color: black;
+}

@@ -32,6 +32,13 @@
 <body>
 	
 	<div class="limiter">
+		{% if form.non_field_errors %}
+			<div class="error">
+				{% for error in form.non_field_errors %}
+					<span>{{error}}</span>			
+				{% endfor %}
+			</div>
+		{% endif %}
 		<div class="container-login100">
 			<div class="wrap-login100">
 				<div class="login100-form-title" style="background-image: url({% static 'registration/login/images/bg-01.jpg' %});">
