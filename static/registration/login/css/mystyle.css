@@ -1,0 +1,9 @@
+@font-face {
+    font-family: Sahel;
+    src: url('../../../Fonts/Tanha.ttf'); 
+}
+
+*{
+    font-family: Sahel !important ;
+    direction: rtl !important;
+}
