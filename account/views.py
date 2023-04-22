@@ -8,4 +8,4 @@ def login_complate(request) :
     return render(request , 'registration/login_complete.html')
 
 class LoginComplate(LoginRequiredMixin , TemplateView) :
-    template_name = 'registration/profile.html'
+    template_name = 'registration/base.html'
