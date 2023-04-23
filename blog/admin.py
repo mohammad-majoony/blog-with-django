@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import *
 
-# admin.site.disable_action('delete_selected')de
+# admin.site.disable_action('delete_selected')
 
 def text_message(count) :
     if count == 1 : return "شد"
@@ -27,10 +27,6 @@ class ArticleAdmin(admin.ModelAdmin) :
     prepopulated_fields = {'slug' : ('title' ,)}
     ordering = ["-created"]
     actions = [make_private , make_public]
-    
-    def category_str(self , obj) :
-        return " - ".join([category.title for category in obj.category_public()])
-    category_str.short_description = 'دسته بندی ها'
     
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin) :

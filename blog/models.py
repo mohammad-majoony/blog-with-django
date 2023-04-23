@@ -66,4 +66,8 @@ class Article(models.Model) :
         return format_html(f'<img src="{self.thumbnail.url}" style="height:40px ; width:60px;">')
     thumbnail_html.short_description = 'تامبنیل'
     
+    def category_str(self) :
+        return " - ".join([category.title for category in self.category_public()])
+    category_str.short_description = 'دسته بندی ها'
+    
     objects = ArticleManger()

@@ -70,3 +70,7 @@
 a.nav-link {
     display: flex;
 }
+
+th , td{
+    text-align: center !important ;
+}
