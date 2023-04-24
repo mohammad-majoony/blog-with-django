@@ -34,7 +34,11 @@
                     <ul class="navbar-nav ms-auto py-4 py-lg-0">
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'blog:home' %}">خانه</a></li>
                         {% category_nav_menu %}
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post.html">عضو شدن</a></li>
+                        {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'account:profile' %}">پروفایل</a></li>
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="{% url 'account:login' %}">عضو شدن</a></li>
+                        {% endif %}
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">درباره</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="contact.html">راهای ارتباطی</a></li>
                     </ul>

@@ -34,6 +34,6 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-    # path('login/success/' , login_complate , name='login_compelate'),
-    path('login/success/' , LoginComplate.as_view() , name='profile'),
+    path('profile' , LoginComplate.as_view() , name='profile'),
+    path('create-article' , ArticleCreate.as_view() , name='create-article'),
 ]

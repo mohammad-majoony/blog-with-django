@@ -1,0 +1,23 @@
+{% extends "registration/profile.html" %}
+
+
+{% block title %}
+    AdminLTE 3 | CreateArticle
+{% endblock title %}
+    
+
+{% block page-title %}
+    نوشتن مقاله
+{% endblock page-title %}
+
+{% block content %}
+    <form action="" method="POST" enctype="multipart/form-data"> {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" class="btn btn-success" >ارسال مقاله</button>
+    </form>
+{% endblock content %}
+
+
+{% block footer %}
+    footer
+{% endblock footer %}

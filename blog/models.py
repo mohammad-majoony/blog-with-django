@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.html import format_html
 from django.contrib.auth.models import User
@@ -44,7 +45,7 @@ class Article(models.Model) :
     thumbnail = models.ImageField(verbose_name = 'تامبنیل' , upload_to='images' , default="defualt/blog.jpg")
     created = models.DateTimeField(verbose_name = 'زمان انتشار' , auto_now_add=True)
     updated = models.DateTimeField(verbose_name = 'زمان بروزرسانی'  , auto_now=True)
-    status = models.CharField(verbose_name = 'وضعیت' , max_length=1 , choices=STATUS_CHOICES)
+    status = models.CharField(verbose_name = 'وضعیت' , default="p" , max_length=1 , choices=STATUS_CHOICES)
     author = models.ForeignKey(User , verbose_name = 'نویسنده' , on_delete=models.CASCADE , related_name='articles')
     category = models.ManyToManyField(Category, verbose_name='دسته بندی' , related_name='articles')
     
@@ -69,5 +70,9 @@ class Article(models.Model) :
     def category_str(self) :
         return " - ".join([category.title for category in self.category_public()])
     category_str.short_description = 'دسته بندی ها'
+    
+    def get_absolute_url(self):
+        return reverse("blog:article_detail", kwargs={"slug": self.slug})
+    
     
     objects = ArticleManger()
